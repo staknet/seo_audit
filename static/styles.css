@@ -1,0 +1,126 @@
+/* static/styles.css */
+
+@font-face {
+    src: local("Poppins Regular"), local("Poppins-Regular"), url(/fonts/Poppins-Regular.woff2) format("woff2");
+    font-family: Poppins;
+    font-weight: 400;
+}
+
+@font-face {
+    src: local("Poppins Medium"), local("Poppins-Medium"), url(/fonts/Poppins-Medium.woff2) format("woff2");
+    font-family: Poppins;
+    font-weight: 500;
+}
+
+body {
+    font-family: Poppins, sans-serif;
+    background-color: #f5f8fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+    color: #007bff;
+}
+
+input[type="text"],
+textarea {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 10px 0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #00509e;
+}
+
+.result-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.success {
+    color: green;
+}
+
+.warning {
+    color: red;
+}
+
+.meta-preview {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Audited URL Styles */
+.audited-url {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.audited-url a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.audited-url a:hover {
+    text-decoration: underline;
+}

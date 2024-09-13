@@ -1,0 +1,20 @@
+.venv/
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Environment
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+
+# OS-specific
+.DS_Store

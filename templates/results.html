@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Audit Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>SEO Audit Results</h1>
+
+        <!-- Display Audited URL -->
+        <div class="result-card">
+            <h2>Audited URL</h2>
+            <p class="audited-url">
+                <a href="{{ url }}" target="_blank">{{ url }}</a>
+            </p>
+        </div>
+
+        <!-- Title and Meta Description -->
+        <div class="result-card">
+            <h2>Title and Meta Description</h2>
+            <h3>Title</h3>
+            <p>{{ title or 'No title found' }}</p>
+            <p>Length: {{ title_length }}</p>
+            <p class="{{ title_status }}">
+                {{ 'The title is within the recommended length.' if title_status == 'success' else 'The title exists but
+                is not within the recommended range.' if title else 'No title tag found!' }}
+            </p>
+            <h3>Meta Description</h3>
+            <p>{{ meta_description or 'No meta description found' }}</p>
+            <p>Length: {{ meta_length }}</p>
+            <p class="{{ meta_status }}">
+                {{ 'The meta description is within the recommended length.' if meta_status == 'success' else 'The meta
+                description exists but is not within the recommended range.' if meta_description else 'No meta
+                description found!' }}
+            </p>
+        </div>
+
+        <!-- Headers -->
+        <div class="result-card">
+            <h2>Header Tags</h2>
+            {% for tag, count in headers.items() %}
+            <p>{{ tag.upper() }}: {{ count }}</p>
+            {% endfor %}
+        </div>
+
+        <!-- Image Alt Text -->
+        <div class="result-card">
+            <h2>Image Alt Text</h2>
+            <p>Total Images: {{ total_images }}</p>
+            <p>Missing Alt Text: {{ missing_alt_text }}</p>
+            <p class="{{ 'success' if missing_alt_text == 0 else 'warning' }}">
+                {{ 'All images have alt text.' if missing_alt_text == 0 else 'Some images are missing alt text.' }}
+            </p>
+        </div>
+
+        <!-- Mobile Friendliness -->
+        <div class="result-card">
+            <h2>Mobile Friendliness</h2>
+            <p class="{{ 'success' if has_viewport else 'warning' }}">
+                {{ 'The site is mobile friendly.' if has_viewport else 'The site is not mobile friendly.' }}
+            </p>
+        </div>
+
+        <!-- Broken Links -->
+        <!-- Broken Links -->
+        <div class="result-card">
+            <h2>Broken Links</h2>
+            <p>Total Links: {{ total_links }}</p>
+            <p>Total Broken Links: {{ broken_links_count }}</p>
+            <p>Total Redirected Links: {{ redirected_links_count }}</p>
+            <p>Total Other Not Reachable Links: {{ other_not_reachable_links_count }}</p>
+            <p class="{{ 'success' if broken_links_count == 0 else 'warning' }}">
+                {{ 'No broken links found.' if broken_links_count == 0 else 'Some broken links were found.' }}
+            </p>
+            <h3>Top 10 Broken Links</h3>
+            {% if broken_links_details %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Link</th>
+                        <th>Anchor Text</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in broken_links_details %}
+                    <tr>
+                        <td><a href="{{ detail.href }}" target="_blank">{{ detail.href }}</a></td>
+                        <td>{{ detail.anchor_text }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No broken link details available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Sitemap and Robots.txt -->
+        <div class="result-card">
+            <h2>Sitemap and Robots.txt</h2>
+            <p>Sitemap: <a href="{{ final_sitemap_url }}" target="_blank">{{ final_sitemap_url if has_sitemap else 'Not
+                    available' }}</a></p>
+            <p>Robots.txt: <a href="{{ final_robots_url }}" target="_blank">{{ final_robots_url if has_robots_txt else
+                    'Not available' }}</a></p>
+        </div>
+
+        <!-- Canonical Tag -->
+        <div class="result-card">
+            <h2>Canonical Tag</h2>
+            <p>{{ canonical_tag if canonical_tag != 'Not available' else 'Canonical tag not found' }}</p>
+        </div>
+    </div>
+</body>
+
+</html>
