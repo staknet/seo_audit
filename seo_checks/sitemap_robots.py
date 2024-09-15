@@ -40,4 +40,4 @@ def check_sitemap_robots(url):
             'status': 'error'
         }
 if __name__ == '__main__':
-    check_sitemap_robots("https://zentekinfosoft.com/")
+    check_sitemap_robots("https://google.com/")

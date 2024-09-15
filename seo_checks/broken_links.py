@@ -2,11 +2,14 @@
 import requests
 from bs4 import BeautifulSoup
 
-def check_broken_links(url):
+def check_broken_links(url, link_limit=10):
     try:
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
         links = soup.find_all('a', href=True)
+        
+        # Limit the number of links to process
+        links = links[:link_limit]
         
         total_links = len(links)
         broken_links = 0
@@ -36,11 +39,11 @@ def check_broken_links(url):
         broken_links_details = sorted(broken_links_details, key=lambda x: x['href'])[:10]
         
         return {
-        'total_links': total_links,
-        'broken_links': broken_links,
-        'redirected_links': redirected_links,
-        'other_not_reachable_links': other_not_reachable_links,
-        'details': broken_links_details  # Make sure 'details' key is included
+            'total_links': total_links,
+            'broken_links': broken_links,
+            'redirected_links': redirected_links,
+            'other_not_reachable_links': other_not_reachable_links,
+            'details': broken_links_details  # Make sure 'details' key is included
         }
     except Exception as e:
         return {
@@ -48,7 +51,7 @@ def check_broken_links(url):
             'broken_links': 0,
             'redirected_links': 0,
             'other_not_reachable_links': 0,
-            'broken_links_details': [],
+            'details': [],  # Correct key name here
             'status': 'error'
         }
 
@@ -60,5 +63,5 @@ if __name__ == '__main__':
     print("Redirected Links:", result['redirected_links'])
     print("Other Not Reachable Links:", result['other_not_reachable_links'])
     print("Top 10 Broken Links and Anchor Text:")
-    for detail in result['broken_links_details']:
+    for detail in result['details']:
         print(f"Link: {detail['href']}, Anchor Text: {detail['anchor_text']}")

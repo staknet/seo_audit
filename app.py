@@ -1,4 +1,4 @@
-# app.py 
+# app.py
 
 from flask import Flask, request, render_template
 from seo_checks import (
@@ -32,6 +32,7 @@ def results():
     
     return render_template(
         'results.html',
+        url=title_meta['url'],
         title=title_meta['title'],
         title_length=title_meta['title_length'],
         title_status=title_meta['title_status'],
@@ -42,15 +43,19 @@ def results():
         total_images=image_alt['total_images'],
         missing_alt_text=image_alt['missing_alt_text'],
         has_viewport=mobile_friendly['has_viewport'],
+        total_links = broken_links['total_links'],
         broken_links_count=broken_links['broken_links'],
+        redirected_links_count=broken_links['redirected_links'],
+        other_not_reachable_links_count=broken_links['other_not_reachable_links'],
+        broken_links_details=broken_links.get('details', []),
         has_sitemap=sitemap_robots['has_sitemap'],
         has_robots_txt=sitemap_robots['has_robots_txt'],
+        final_sitemap_url=sitemap_robots['final_sitemap_url'],
+        final_robots_url=sitemap_robots['final_robots_url'],
         canonical_tag=canonical_tag['canonical_tag'],
         internal_links=link_analysis['internal_links'],
-        external_links=link_analysis['external_links'],
-        broken_links_details=broken_links.get('details', [])  # Provide default empty list if 'details' is missing
+        external_links=link_analysis['external_links']
     )
-
 
 if __name__ == '__main__':
     app.run(debug=True)
